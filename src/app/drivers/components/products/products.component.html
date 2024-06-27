@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Products</h1>
+    <h4>Choice your product today!</h4>
+    <br>
+    <br>
+
+    <div class="listControl">
+        <button (click)="productService.prevPage()"
+            class="prev">Previous page</button>
+        <button (click)="productService.nextPage()"
+            class="next">Next page</button>
+    </div>
+
+    <ul>
+        @for (item of (products | async)?.products; track item.id) {
+        <li [attr.data-id]="item.id">
+            <div>
+                <img [src]="item.thumbnail"
+                    [alt]="item.description">
+                <div>
+                    <h2>{{item.title}}</h2>
+                    <p>{{item.description}}</p>
+                    <h1>{{item.price | currency }}</h1>
+                </div>
+                <button class="addToCart"
+                    addToCart
+                    [product]="item">Add to Cart</button>
+            </div>
+        </li>}@empty {
+        <div class="empty">Nada por aqui!</div>
+        }
+    </ul>
+</div>
